@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 
 import './App.css';
 
-import CreateSurvey from './containers/createSurveyForm'
+import CreateSurveyForm from './containers/createSurveyForm'
+import SurveyQuestions from './containers/surveyQuestions'
 
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -14,16 +15,19 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: '10px',
   },
+  app: {
+    backgroundColor: '#F1DCA7'
+  }
 }));
 
 function App() {
   const classes = useStyles();
 
   return (
-    <div className="App">
+    <div className="App" className={classes.app}>
       <SurveyState>
         <Container maxWidth="lg" className={classes.container}>
-          <CreateSurvey/>
+          <SurveyQuestions/>
         </Container>
       </SurveyState>
     </div>

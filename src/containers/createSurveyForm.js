@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 
-import { FormControl, Slider,Typography  } from '@material-ui/core';
+import { FormControl } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles'
 
 import FormTextField from '../components/FormTextField';
@@ -17,12 +17,9 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '300px',
         justifyContent: 'space-between'
     },
-    slider: {
-        margin: '30px 0px'
-    }
 }));
 
-const CreateSurvey = () => {
+const CreateSurveyForm = () => {
 
     const surveyContext = useContext(SurveyContext);
 
@@ -31,8 +28,7 @@ const CreateSurvey = () => {
     const [surveyDetails, setSurveyDetails] = useState(
         {
             surveyName: '',
-            surveyDescription: '',
-            totalQuestions: ''
+            surveyDescription: ''
         }
     );
 
@@ -64,17 +60,12 @@ const CreateSurvey = () => {
                         id="surveyDescription" 
                         onContentChange={event => updateTextField(event.target)} 
                     />
-                    <Typography id="question-slider" gutterBottom># of Questions</Typography>
-                    <FormTextField 
-                        label="Select total questions" 
-                        content={surveyDetails.totalQuestions} 
-                        id="totalQuestions" 
-                        onContentChange={event => updateTextField(event.target)} 
-                    />
                     <FormButton 
                         type="primary"
                         label="Create Survey" 
                         onClick={formSubmit}
+                        variant="contained"
+                        icon=""
                     />
                 </FormControl>
             </form>
@@ -82,8 +73,4 @@ const CreateSurvey = () => {
     )
 }
 
-export default () => {
-    return (
-        <CreateSurvey/>
-    )
-}
+export default CreateSurveyForm;

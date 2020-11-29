@@ -4,7 +4,7 @@ import SurveyContext from './surveyContext';
 
 import surveyReducer from './surveyReducer';
 
-import {REGISTER_NEW_SURVEY} from './types';
+import {REGISTER_NEW_SURVEY,ADD_NEW_QUESTION} from './types';
 
 const SurveyState = (props) => {
     const initialState = {
@@ -14,39 +14,22 @@ const SurveyState = (props) => {
             {
                 id: 1,
                 title: "This is the title of the question 1",
+                type: "Multiple Choice",
                 answers:[
                     {
                         id: 1,
-                        answer: 'This is one answer'
+                        answerTitle: 'This is one answer'
                     },
                     {
                         id: 2,
-                        answer: 'This is the second answer'
+                        answerTitle: 'This is the second answer'
                     },
                     {
                         id: 3,
-                        answer: 'Oh shit, heres number 3'
+                        answerTitle: 'Oh shit, heres number 3'
                     }
                 ]
             },
-            {
-                id: 2,
-                title: "This is the title of the question 2",
-                answers:[
-                    {
-                        id: 1,
-                        answer: 'This is one answer 2'
-                    },
-                    {
-                        id: 2,
-                        answer: 'This is the second answer 2'
-                    },
-                    {
-                        id: 3,
-                        answer: 'Oh shit, heres number 3 2'
-                    }
-                ]
-            }
         ]
     };
 
@@ -56,12 +39,17 @@ const SurveyState = (props) => {
         dispatch({type: REGISTER_NEW_SURVEY, payload: surveyDetails})
     }
 
+    const addQuestion = (question) => {
+        dispatch({type: ADD_NEW_QUESTION, payload: question})
+    }
+
     return (
         <div>
             <SurveyContext.Provider
             value={{
                 survey: state,
-                registerNewSurvey
+                registerNewSurvey,
+                addQuestion
             }}>
                 {props.children}
             </SurveyContext.Provider>

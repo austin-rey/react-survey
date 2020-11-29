@@ -1,4 +1,4 @@
-import {REGISTER_NEW_SURVEY} from './types';
+import {REGISTER_NEW_SURVEY,ADD_NEW_QUESTION} from './types';
 
 export default (state, {type, payload}) => {
     switch (type) {
@@ -19,6 +19,13 @@ export default (state, {type, payload}) => {
                         }
                     })
                 ],
+            }
+        case ADD_NEW_QUESTION:
+            return {
+                ...state,
+                questions: [
+                    ...state.questions, payload
+                ]
             }
         default:
             return { state };

@@ -1,98 +1,83 @@
-import React, {useContext, useState,useEffect} from 'react'
-
-import { Paper,FormControl  } from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
-
-import SurveyContext from '../context/surveys/surveyContext';
-
-import TemplateTextField from '../components/TemplateTextField';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {Card,CardHeader,IconButton,CardContent,CardActions,Typography,List,ListItem,ListItemIcon,ListItemText } from '@material-ui/core';
 import FormButton from '../components/FormButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex'
-    },
-    surveyQuestionFC: {
         display: 'flex',
-        padding: '10px'
-    },
-    paper: {
-        marginBottom: '10px'
-    }
+      },
+      cardContainer: {
+        marginTop: '10px'
+      },
+      cardHeader: {
+         backgroundColor: '#555B6E',
+         color: '#fff'
+      },
+      answerList: {
+          display: 'flex',
+          flexDirection:"column",
+          alignItems: 'flex-start',
+          width: '100%'
+      },
+      cardActions: {
+          justifyContent: 'flex-end',
+          flexDirection: 'row'
+      }
 }));
 
-
 const SurveyQuestion = ({question}) => {
+
     const classes = useStyles();
 
-    const surveyContext = useContext(SurveyContext);
-
-    const [questionState, setQuestionState] = useState({
-        title: '',
-        answers: []
-    })
-
-    useEffect(() => {
-        setQuestionState({
-            title: question.title,
-            answers: [...question.answers]
-        })
-      }, [surveyContext]);
-
-      
-    const fieldChange = (e) => {
-        let titleAnswer = e.target.id.slice(0, -1)
-        let id = e.target.id.slice(-1);
-        let updatedAnswer;
-        
-        if(titleAnswer == 'answer'){
-            updatedAnswer = {
-                id,
-                answer: e.target.value
-            }
-        }
-
-        (titleAnswer == 'title')
-            ?setQuestionState({...questionState, title: e.target.value})
-            :setQuestionState({...questionState, answers:[
-                ...questionState.answers.map((answer,i) => {
-                    return (answer.id == id) ? updatedAnswer : answer
-                })
-            ]})
-    }
-
     return (
-        <Paper elevation={1} className={classes.paper}>
-        <FormControl className={classes.surveyQuestionFC}>
-            <h3>Question {question.id}</h3>
-            <TemplateTextField 
-                label="TITLE" 
-                content={question.title} 
-                placeholder={'Add a title..'}
-                id={`title${question.id}`}
-                name={'title'}
-                onContentChange={fieldChange} />
-
-                {question.answers.map((answer, index) => (
-                    <TemplateTextField
-                    label={`ANSWER ${index+1}`}
-                    content={answer.answer} 
-                    placeholder={'Add an answer..'}
-                    id={`answer${answer.id}`}
-                    name={'answer'}
-                    onContentChange={fieldChange} />
-                ))}
-            
-            <FormButton
-                type="primary"
-                label="New answer" 
-                onClick={console.log('Add a new answer')}
-                variant="outlined"
-                startIcon={''}
+        <Card className={classes.cardContainer}>
+            <CardHeader
+                className={classes.cardHeader}
+                action={
+                <IconButton aria-label="settings">
+                    <MoreVertIcon />
+                </IconButton>
+                }
+                title={`Question ${question.id}`}
+                subheader={question.type}
             />
-        </FormControl>
-    </Paper>
+            <CardContent>
+                <p>
+                {question.title}
+                </p>
+                <List className={classes.answerList}>
+                    {question.answers.map((answer, index) => (
+                        <ListItem>
+                            <ListItemText primary={answer.answerTitle}/>
+                        </ListItem>
+                    ))}
+                </List>
+            </CardContent>
+            <CardActions className={classes.cardActions}>
+                    <FormButton 
+                        type="primary"
+                        label="Edit" 
+                        onClick={console.log('Poop2')}
+                        variant="outlined"
+                        startIcon={''}/>
+                
+                    <FormButton 
+                        type="secondary"
+                        label="Delete" 
+                        onClick={console.log('Poop2')}
+                        variant="outlined"
+                        startIcon={''}/>
+                    
+            </CardActions>
+        </Card>
     )
 }
 
-export default SurveyQuestion;
+SurveyQuestion.propTypes = {
+
+}
+
+export default SurveyQuestion

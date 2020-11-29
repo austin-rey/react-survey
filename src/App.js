@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px',
   },
   app: {
-    backgroundColor: '#F1DCA7'
+    backgroundColor: '#EBF4F2'
   }
 }));
 
@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App" className={classes.app}>
       <SurveyState>
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth="md" className={classes.container}>
           <SurveyQuestions/>
         </Container>
       </SurveyState>

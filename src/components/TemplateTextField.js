@@ -5,9 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    // textField: {
-    //    marginLeft: '10px',
-    //   },
+    textField: {
+       width: '100%',
+       borderBottom: 'none'
+      },
   }));
 
 const TemplateTextField = ({label, content, placeholder, id, onContentChange}) => {
@@ -15,11 +16,18 @@ const TemplateTextField = ({label, content, placeholder, id, onContentChange}) =
     const classes = useStyles();
 
     return (
-        <TextField className={classes.textField} label={label} id={id} defaultValue={content} placeholder={placeholder} onChange={onContentChange} 
+        <TextField className={classes.textField} label={label} id={id} defaultValue={content} value={content} placeholder={placeholder} onChange={onContentChange} 
             multiline
-            rows={1}
+            required
+            rowsMax={3}
             margin="normal"
-            color="primary"/>
+            color="primary"
+            InputLabelProps={{
+                shrink: true,
+              }}
+              variant="filled"
+            />
+            
     )
 }
 

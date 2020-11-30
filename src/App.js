@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px',
   },
   app: {
-    backgroundColor: '#EBF4F2'
+    backgroundImage: 'linear-gradient(40deg, #E6EAE8 0%, #B9C2C4 100%)',
   }
 }));
 

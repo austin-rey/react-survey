@@ -1,9 +1,10 @@
-import React from 'react'
+import {useContext} from 'react'
 import PropTypes from 'prop-types'
 import {Card,CardHeader,IconButton,CardContent,CardActions,Typography,List,ListItem,ListItemIcon,ListItemText } from '@material-ui/core';
 import FormButton from '../components/FormButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {makeStyles} from '@material-ui/core/styles';
+import SurveyContext from '../context/surveys/surveyContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '10px'
       },
       cardHeader: {
-         backgroundColor: '#555B6E',
-         color: '#fff'
+         backgroundColor: '#E6EBE0',
+         color: '#5D576B'
       },
       answerList: {
           display: 'flex',
@@ -31,16 +32,15 @@ const useStyles = makeStyles((theme) => ({
 const SurveyQuestion = ({question}) => {
 
     const classes = useStyles();
+    
+    const surveyContext = useContext(SurveyContext);
+    const {survey} = surveyContext;
 
     return (
         <Card className={classes.cardContainer}>
             <CardHeader
                 className={classes.cardHeader}
-                action={
-                <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                </IconButton>
-                }
+               
                 title={`Question ${question.id}`}
                 subheader={question.type}
             />

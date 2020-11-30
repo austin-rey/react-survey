@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '10px'
       },
       cardHeader: {
-         backgroundColor: '#555B6E',
-         color: '#fff'
+        backgroundColor: '#E6EBE0',
+        color: '#5D576B'
       },
       questionContent: {
 
@@ -103,6 +103,7 @@ const NewSurveyQuestion = ({type}) => {
         if(questionState.title === '' || answerFields) {
             setAlert('Please enter all fields.', 'error');
         } else {
+            setAlert('Successfully added a new question', 'success');
             addQuestion(questionState);
         }
     }

@@ -142,6 +142,21 @@
                     "answerTitle": "Excellent"
                 }
             ]
+        },
+        {
+            "id": 6,
+            "title": "Are you taking this survey?",
+            "type": "True/False",
+            "answers":[
+                {
+                    "id": 1,
+                    "answerTitle": "True"
+                },
+                {
+                    "id": 2,
+                    "answerTitle": "False"
+                }
+            ]
         }
     ]
 }

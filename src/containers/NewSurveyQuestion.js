@@ -5,6 +5,7 @@ import {Card,CardHeader,CardContent,CardActions} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
 import SurveyContext from '../context/surveys/surveyContext';
+import AlertsContext from '../context/alerts/alertsContext';
 
 import TemplateTextField from '../components/TemplateTextField';
 import FormButton from '../components/FormButton';
@@ -36,11 +37,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NewSurveyQuestion = ({question}) => {
+const NewSurveyQuestion = ({type}) => {
     const classes = useStyles();
 
     const surveyContext = useContext(SurveyContext);
+    const alertsContext = useContext(AlertsContext);
 
+    const {setAlert} = alertsContext;
     const {addQuestion,survey} = surveyContext;
 
     const [questionState, setQuestionState] = useState({
@@ -52,7 +55,7 @@ const NewSurveyQuestion = ({question}) => {
         setQuestionState({
             id: survey.questions.length +1,
             title: '',
-            type: '',
+            type: type,
             answers: [
                 {
                     id: 1,
@@ -75,7 +78,7 @@ const NewSurveyQuestion = ({question}) => {
         let titleAnswer = e.target.id.replace(/[0-9]/g, '');
         let id = e.target.id.slice(-1);
         let updatedAnswer;
-        console.log(titleAnswer);
+
         if(titleAnswer == 'answer'){
             updatedAnswer = {
                 id,
@@ -93,10 +96,16 @@ const NewSurveyQuestion = ({question}) => {
     }
 
     const submitNewQuestion = () => {
-        addQuestion(questionState);
-    }
+        const answerFields = questionState.answers.reduce((acc, answer)=>{
+            return answer.answerTitle === '';
+        })
 
-    console.log(questionState);
+        if(questionState.title === '' || answerFields) {
+            setAlert('Please enter all fields.', 'error');
+        } else {
+            addQuestion(questionState);
+        }
+    }
 
     return (
         <Card className={classes.questionCard}>
@@ -132,13 +141,13 @@ const NewSurveyQuestion = ({question}) => {
                     type="primary"
                     label="Save" 
                     onClick={submitNewQuestion}
-                    variant="outlined"
+                    variant="contained"
                     startIcon={''}/>
                 <FormButton 
                     type="secondary"
                     label="Delete" 
-                    onClick={console.log('Poop2')}
-                    variant="outlined"
+                    onClick={console.log('s')}
+                    variant="contained"
                     startIcon={''}/>
             </CardActions>
         </Card>

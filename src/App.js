@@ -2,14 +2,16 @@ import React, {useState} from 'react'
 
 import './App.css';
 
-import CreateSurveyForm from './containers/createSurveyForm'
-import SurveyQuestions from './containers/surveyQuestions'
+import CreateSurveyForm from './containers/CreateSurveyForm'
+import SurveyQuestions from './containers/SurveyQuestions'
+import Alerts from './components/Alerts';
 
 import {makeStyles} from '@material-ui/core/styles';
 
 import { Container } from '@material-ui/core';
 
 import SurveyState from './context/surveys/surveyState';
+import AlertsState from './context/alerts/alertsState';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -26,9 +28,12 @@ function App() {
   return (
     <div className="App" className={classes.app}>
       <SurveyState>
-        <Container maxWidth="md" className={classes.container}>
+        <AlertsState>
+          <Alerts/>
+            <Container maxWidth="md" className={classes.container}>
           <SurveyQuestions/>
         </Container>
+        </AlertsState>
       </SurveyState>
     </div>
   );

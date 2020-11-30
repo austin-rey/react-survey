@@ -7,6 +7,7 @@ import FormTextField from '../components/FormTextField';
 import FormButton from '../components/FormButton';
 
 import SurveyContext from '../context/surveys/surveyContext';
+import AlertsContext from '../context/alerts/alertsContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
 const CreateSurveyForm = () => {
 
     const surveyContext = useContext(SurveyContext);
+    const alertsContext = useContext(AlertsContext);
 
+    const {setAlert} = alertsContext;
     const {registerNewSurvey} = surveyContext;
 
     const [surveyDetails, setSurveyDetails] = useState(
@@ -38,6 +41,9 @@ const CreateSurveyForm = () => {
     }
 
     const formSubmit = () => {
+        if(surveyDetails.surveyName === '' || surveyDetails.surveyDescription === '') {
+            setAlert('Please enter all fields.', 'error');
+        }
         registerNewSurvey(surveyDetails);
     }
 

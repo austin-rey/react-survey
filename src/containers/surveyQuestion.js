@@ -61,14 +61,14 @@ const SurveyQuestion = ({question}) => {
                         type="primary"
                         label="Edit" 
                         onClick={console.log('Poop2')}
-                        variant="outlined"
+                        variant="contained"
                         startIcon={''}/>
                 
                     <FormButton 
                         type="secondary"
                         label="Delete" 
                         onClick={console.log('Poop2')}
-                        variant="outlined"
+                        variant="contained"
                         startIcon={''}/>
                     
             </CardActions>

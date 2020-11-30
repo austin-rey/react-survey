@@ -34,8 +34,8 @@ const Alerts = () => {
           
             {
                 alertContext.alerts.length > 0 &&
-                alertContext.alerts.map((alert) => (
-                    <Alert severity={alert.type}>{alert.msg}</Alert>
+                alertContext.alerts.map((alert, i) => (
+                    <Alert key={i} severity={alert.type}>{alert.msg}</Alert>
                 ))
             }
              

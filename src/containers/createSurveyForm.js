@@ -36,7 +36,6 @@ const CreateSurveyForm = () => {
     );
 
     const updateTextField = (e) => {
-        console.log(surveyDetails);
         setSurveyDetails({...surveyDetails, [e.id]: e.value});
     }
 

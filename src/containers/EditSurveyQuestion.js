@@ -37,42 +37,57 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NewSurveyQuestion = ({type}) => {
+const NewSurveyQuestion = ({type, currentQuestion}) => {
     const classes = useStyles();
 
     const surveyContext = useContext(SurveyContext);
     const alertsContext = useContext(AlertsContext);
 
     const {setAlert} = alertsContext;
-    const {addQuestion,survey} = surveyContext;
+    const {addQuestion,updateQuestion,survey} = surveyContext;
 
     const [questionState, setQuestionState] = useState({
         title: '',
         answers: []
     })
 
-    useEffect(() => {
-        setQuestionState({
-            id: survey.questions.length +1,
-            title: '',
-            type: type,
-            answers: [
-                {
-                    id: 1,
-                    answerTitle: ''
-                },
-                {
-                    id: 2,
-                    answerTitle: ''
-                },
-                {
-                    id: 3,
-                    answerTitle: ''
-                }
-            ]
-        })
-      }, [survey]);
+    const [reset, restForm] = useState(false);
 
+    console.log(currentQuestion);
+    useEffect(() => {
+        if(currentQuestion) {
+            setQuestionState({
+                id: currentQuestion.id,
+                title: currentQuestion.title,
+                type: currentQuestion.type,
+                answers: currentQuestion.answers.map(answer=> {
+                    return {id: answer.id,answerTitle: answer.answerTitle}
+                })
+            })
+        }else {
+            setQuestionState({
+                id: survey.questions.length +1,
+                title: '',
+                type: type,
+                answers: [
+                    {
+                        id: 1,
+                        answerTitle: ''
+                    },
+                    {
+                        id: 2,
+                        answerTitle: ''
+                    },
+                    {
+                        id: 3,
+                        answerTitle: ''
+                    }
+                ]
+            })
+        }
+        
+        restForm(false);
+      }, [survey, reset]);
       
     const fieldChange = (e) => {
         let titleAnswer = e.target.id.replace(/[0-9]/g, '');
@@ -101,11 +116,20 @@ const NewSurveyQuestion = ({type}) => {
         })
 
         if(questionState.title === '' || answerFields) {
-            setAlert('Please enter all fields.', 'error');
+            setAlert('Please add a value to all fields.', 'error');
         } else {
-            setAlert('Successfully added a new question', 'success');
-            addQuestion(questionState);
+            if (currentQuestion) {
+                updateQuestion(questionState);
+                setAlert(`Successfully updated question ${currentQuestion.id}.`, 'success');
+            } else {
+                addQuestion(questionState);
+                setAlert('Successfully added a new question.', 'success');
+            }
         }
+    }
+
+    const resetFormFields = () => {
+        restForm(true);
     }
 
     return (
@@ -115,7 +139,6 @@ const NewSurveyQuestion = ({type}) => {
                 title={`Question ${questionState.id}`}
                 subheader={questionState.type}/>
             <CardContent className={classes.questionContent}>
-
                 <TemplateTextField 
                     label="TITLE" 
                     content={questionState.title} 
@@ -127,6 +150,7 @@ const NewSurveyQuestion = ({type}) => {
                     <div className={classes.answerList}>
                         {questionState.answers.map((answer, index) => (
                             <TemplateTextField
+                            key={index}
                             label={`ANSWER ${index+1}`}
                             content={answer.answerTitle} 
                             placeholder={'Add an answer..'}
@@ -135,9 +159,8 @@ const NewSurveyQuestion = ({type}) => {
                             onContentChange={fieldChange} />
                         ))}
                     </div>
-                  
-                </CardContent>
-            <CardActions className={classes.cardActions}>
+            </CardContent>
+            {!currentQuestion && <CardActions className={classes.cardActions}>
                 <FormButton 
                     type="primary"
                     label="Save" 
@@ -146,11 +169,26 @@ const NewSurveyQuestion = ({type}) => {
                     startIcon={''}/>
                 <FormButton 
                     type="secondary"
-                    label="Delete" 
-                    onClick={console.log('s')}
+                    label="Undo Changes" 
+                    onClick={resetFormFields}
                     variant="contained"
                     startIcon={''}/>
-            </CardActions>
+            </CardActions>}
+            {currentQuestion && <CardActions className={classes.cardActions}>
+                <FormButton 
+                    type="primary"
+                    label="Save Changes" 
+                    onClick={submitNewQuestion}
+                    variant="contained"
+                    startIcon={''}/>
+                <FormButton 
+                    type="secondary"
+                    label="Undo Changes" 
+                    onClick={resetFormFields}
+                    variant="contained"
+                    startIcon={''}/>
+            </CardActions>}
+            
         </Card>
     )
 }

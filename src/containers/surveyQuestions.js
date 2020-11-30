@@ -6,7 +6,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import SurveyContext from '../context/surveys/surveyContext';
 
-import NewSurveyQuestion from './NewSurveyQuestion';
+import NewSurveyQuestion from './EditSurveyQuestion';
 import SurveyQuestion from './SurveyQuestion';
 import FormButton from '../components/FormButton';
 
@@ -42,21 +42,17 @@ const SurveyQuestions = () => {
         //New Question was added
         setQuestionType('');
         showNewQuestionCard(false);
-        console.log('hi')
     }, [survey])
 
     const questionTypeSelected = (type) => {
-        console.log('hie')
         setQuestionType(type);
         showNewQuestionCard(true);
     }
-
     return (
         <div>
-            <h1>Create Survey</h1>
-             
-            {survey.questions.map((question) => (
-                 <SurveyQuestion question={question}/>
+            <h1>Create Survey</h1> 
+            {survey.questions.map((question,i) => (
+                 <SurveyQuestion number={i+1} key={i} question={question}/>
              ))}
             
             {(state)

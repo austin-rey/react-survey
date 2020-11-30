@@ -1,10 +1,30 @@
-import {useContext} from 'react'
+import {useContext,useState,useEffect} from 'react'
+
 import PropTypes from 'prop-types'
-import {Card,CardHeader,IconButton,CardContent,CardActions,Typography,List,ListItem,ListItemIcon,ListItemText } from '@material-ui/core';
+
+import {Card,CardHeader,IconButton,CardContent,CardActions,List,ListItem,ListItemText, Paper, Modal } from '@material-ui/core';
+
 import FormButton from '../components/FormButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import EditSurveyQuestion from '../containers/EditSurveyQuestion';
+
 import {makeStyles} from '@material-ui/core/styles';
 import SurveyContext from '../context/surveys/surveyContext';
+import AlertsContext from '../context/alerts/alertsContext';
+
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+    };
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,53 +46,88 @@ const useStyles = makeStyles((theme) => ({
       cardActions: {
           justifyContent: 'flex-end',
           flexDirection: 'row'
-      }
+      },
+      paper: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        marginTop: '0px',
+        width: '50vw'
+      },
 }));
 
-const SurveyQuestion = ({question}) => {
-
+const SurveyQuestion = ({question, number}) => {
     const classes = useStyles();
-    
+
     const surveyContext = useContext(SurveyContext);
-    const {survey} = surveyContext;
+    const alertsContext = useContext(AlertsContext);
+
+    const {setAlert} = alertsContext;
+    const {deleteQuestion,state} = surveyContext;
+
+    const [modalStyle] = useState(getModalStyle);
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {setOpen(true);};
+    const handleClose = () => {setOpen(false);};
+
+    useEffect(() => {
+        // Reset Modal popup if question state was updated
+        setOpen(false);
+    }, [question])
+
+    const questionDeleted = () => {
+        setAlert('Question deleted.', 'success');
+        deleteQuestion(question.id);
+    }
 
     return (
-        <Card className={classes.cardContainer}>
-            <CardHeader
-                className={classes.cardHeader}
-               
-                title={`Question ${question.id}`}
-                subheader={question.type}
-            />
-            <CardContent>
-                <p>
-                {question.title}
-                </p>
-                <List className={classes.answerList}>
-                    {question.answers.map((answer, index) => (
-                        <ListItem>
-                            <ListItemText primary={answer.answerTitle}/>
-                        </ListItem>
-                    ))}
-                </List>
-            </CardContent>
-            <CardActions className={classes.cardActions}>
+        <div>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="Edit question modal"
+                aria-describedby="This popup is for editing your questions title and answers">
+                    <Paper className={classes.paper} variant="outlined">
+                        <EditSurveyQuestion className={classes.surveyQuestion}currentQuestion={question} />
+                    </Paper>
+            </Modal>
+            <Card className={classes.cardContainer}>
+                <CardHeader
+                    className={classes.cardHeader}
+                    title={`Question ${number}`}
+                    subheader={question.type}
+                />
+                <CardContent>
+                    <p>
+                    {question.title}
+                    </p>
+                    <List className={classes.answerList}>
+                        {question.answers.map((answer, i) => (
+                            <ListItem key={i}>
+                                <ListItemText primary={answer.answerTitle}/>
+                            </ListItem>
+                        ))}
+                    </List>
+                </CardContent>
+                <CardActions className={classes.cardActions}>
                     <FormButton 
                         type="primary"
                         label="Edit" 
-                        onClick={console.log('Poop2')}
+                        onClick={handleOpen}
                         variant="contained"
                         startIcon={''}/>
-                
                     <FormButton 
                         type="secondary"
                         label="Delete" 
-                        onClick={console.log('Poop2')}
+                        onClick={questionDeleted}
                         variant="contained"
                         startIcon={''}/>
-                    
             </CardActions>
         </Card>
+        </div>
+        
     )
 }
 

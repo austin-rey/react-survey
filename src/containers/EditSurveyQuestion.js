@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '10px'
       },
       cardHeader: {
-        backgroundColor: '#495867',
+        backgroundColor: '#6F868E',
         color: '#F0EFEB'
      },
      answerField: {

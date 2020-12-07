@@ -2,9 +2,9 @@ import React, {useState} from 'react'
 
 import './App.css';
 
-import CreateSurveyForm from './containers/CreateSurveyForm'
 import SurveyQuestions from './containers/SurveyQuestions'
 import Alerts from './components/Alerts';
+import Navigation from './components/Navigation';
 
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -30,9 +30,10 @@ function App() {
       <SurveyState>
         <AlertsState>
           <Alerts/>
-            <Container maxWidth="md" className={classes.container}>
-          <SurveyQuestions/>
-        </Container>
+          <Navigation />
+          <Container maxWidth="md" className={classes.container}>
+            <SurveyQuestions/>
+          </Container>
         </AlertsState>
       </SurveyState>
     </div>

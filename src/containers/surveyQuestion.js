@@ -34,18 +34,23 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '10px'
       },
       cardHeader: {
-         backgroundColor: '#E6EBE0',
-         color: '#5D576B'
+         backgroundColor: '#495867',
+         color: '#F0EFEB'
       },
       answerList: {
           display: 'flex',
           flexDirection:"column",
           alignItems: 'flex-start',
-          width: '100%'
+          width: '100%',
+      },
+      listItem: {
+          backgroundColor: '#E6EBE0',
+          marginBottom: '5px'
       },
       cardActions: {
-          justifyContent: 'flex-end',
-          flexDirection: 'row'
+        backgroundColor: '#F0EFEB',
+        justifyContent: 'flex-end',
+        flexDirection: 'row'
       },
       paper: {
         position: 'absolute',
@@ -105,7 +110,7 @@ const SurveyQuestion = ({question, number}) => {
                     </p>
                     <List className={classes.answerList}>
                         {question.answers.map((answer, i) => (
-                            <ListItem key={i}>
+                            <ListItem key={i} className={classes.listItem}>
                                 <ListItemText primary={answer.answerTitle}/>
                             </ListItem>
                         ))}

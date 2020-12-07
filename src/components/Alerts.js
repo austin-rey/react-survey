@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
       },
       position: 'fixed',
       top: '10px',
-      right: '10px'
+      right: '10px',
+      zIndex: '10'
     },
   }));
 

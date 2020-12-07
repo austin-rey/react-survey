@@ -6,7 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     textField: {
-       width: '100%'
+       width: '100%',
+       backgroundColor: '#E6EBE0',
+ 
       },
   }));
 
@@ -29,7 +31,7 @@ const TemplateTextField = ({label, content, placeholder, id, onContentChange}) =
             InputLabelProps={{
                 shrink: true,
             }}
-            variant="filled"
+            variant="standard"
         />
     )
 }

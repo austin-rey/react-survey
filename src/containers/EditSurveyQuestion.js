@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '10px'
       },
       cardHeader: {
+        backgroundColor: '#495867',
+        color: '#F0EFEB'
+     },
+     answerField: {
         backgroundColor: '#E6EBE0',
-        color: '#5D576B'
-      },
-      questionContent: {
-
       },
       answerList: {
           display: 'flex',
@@ -31,9 +31,10 @@ const useStyles = makeStyles((theme) => ({
           width: '100%'
       },
       cardActions: {
-          justifyContent: 'flex-end',
-          flexDirection: 'row'
-      }
+        backgroundColor: '#F0EFEB',
+        justifyContent: 'flex-end',
+        flexDirection: 'row'
+      },
 }));
 
 
@@ -150,6 +151,7 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
                     <div className={classes.answerList}>
                         {questionState.answers.map((answer, index) => (
                             <TemplateTextField
+                            className={classes.answerField}
                             key={index}
                             label={`ANSWER ${index+1}`}
                             content={answer.answerTitle} 

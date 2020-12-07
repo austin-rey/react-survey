@@ -4,7 +4,6 @@ import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     header: {
-        width: '100vw',
         backgroundColor:'#454852',
         zIndex: '9',
         color: '#fff',

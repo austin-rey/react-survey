@@ -46,7 +46,6 @@ const SurveyFlow = () => {
     const classes = useStyles();
     return (
         <div>        
-            <p><strong>Define how the user will go through your survey.</strong><br/> Below is a chart representing the flow of your survey. Start by adding screens between questions that give instructions or context to the survey. </p>
             <Paper>
                 <Timeline align="left">
                     <TimelineItem className={classes.alignLeft}>

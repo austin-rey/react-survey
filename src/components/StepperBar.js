@@ -25,7 +25,7 @@ function getSteps() {
 
 const StepperBar = props => {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(1);
     const steps = getSteps();
     
     return (

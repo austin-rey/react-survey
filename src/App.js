@@ -4,6 +4,8 @@ import './App.css';
 
 import SurveyQuestions from './containers/SurveyQuestions'
 import CreateSurveyForm from './containers/CreateSurveyForm'
+import SurveyFlow from './containers/SurveyFlow'
+
 import Alerts from './components/Alerts';
 import Navigation from './components/Navigation';
 import StepperBar from './components/StepperBar'
@@ -36,9 +38,10 @@ function App() {
           <Alerts/>
           <Navigation />
           <Container maxWidth="md" className={classes.container}>
-            {/* <StepperBar/> */}
-            <CreateSurveyForm/>
+            <StepperBar/>
+            {/* <CreateSurveyForm/> */}
             {/* <SurveyQuestions/> */}
+            <SurveyFlow/>
           </Container>
         </AlertsState>
       </SurveyState>

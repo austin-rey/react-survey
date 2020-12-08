@@ -50,7 +50,6 @@ const SurveyQuestions = () => {
     }
     return (
         <div>
-            <h1>Create Survey</h1> 
             {survey.questions.map((question,i) => (
                  <SurveyQuestion number={i+1} key={i} question={question}/>
              ))}

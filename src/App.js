@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import './App.css';
 
 import SurveyQuestions from './containers/SurveyQuestions'
 import Alerts from './components/Alerts';
 import Navigation from './components/Navigation';
+import StepperBar from './components/StepperBar'
 
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -32,6 +33,7 @@ function App() {
           <Alerts/>
           <Navigation />
           <Container maxWidth="md" className={classes.container}>
+            <StepperBar/>
             <SurveyQuestions/>
           </Container>
         </AlertsState>

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Survey Details', 'Survey Questions', 'Survey Flow', 'Survey Appearance'];
+    return ['Survey Questions', 'Survey Flow', 'Survey Appearance'];
 }
 
 const StepperBar = props => {

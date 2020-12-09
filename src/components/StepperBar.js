@@ -48,7 +48,7 @@ function getStepContent(step) {
     case 2:
       return (
         <>
-        <h1>Define how your survey will look to the end user.</h1><p><i>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam, distinctio consequatur. Maxime voluptates tempore ratione, labore ipsam beatae, harum laborum, perferendis ut soluta totam aspernatur aperiam omnis dicta vel illo!</i></p></>
+        <h1>Define How Your Survey Will Look</h1><p><i>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam, distinctio consequatur. Maxime voluptates tempore ratione, labore ipsam beatae, harum laborum, perferendis ut soluta totam aspernatur aperiam omnis dicta vel illo!</i></p></>
         );
     default:
       return <p><strong></strong><br/></p>;

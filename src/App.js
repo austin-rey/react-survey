@@ -5,6 +5,7 @@ import './App.css';
 import SurveyQuestions from './containers/SurveyQuestions'
 import CreateSurveyForm from './containers/CreateSurveyForm'
 import SurveyFlow from './containers/SurveyFlow'
+import SurveyAppearance from './containers/SurveyAppearance'
 
 import Alerts from './components/Alerts';
 import Navigation from './components/Navigation';
@@ -42,7 +43,8 @@ function App() {
           <Container maxWidth="md" className={classes.container}>
             {/* <CreateSurveyForm/> */}
             {/* <SurveyQuestions/> */}
-            <SurveyFlow/>
+            {/* <SurveyFlow/> */}
+            <SurveyAppearance/>
           </Container>
         </AlertsState>
       </SurveyState>

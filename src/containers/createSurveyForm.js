@@ -10,22 +10,28 @@ import SurveyContext from '../context/surveys/surveyContext';
 import AlertsContext from '../context/alerts/alertsContext';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        height: 'calc(100vh - 60px);',
+        width: '66%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     paper: {
         textAlign: 'center',
-        // padding: '20px 10px',
-        height: '300px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-
+        padding: '20px',
+        width: '100%',
+        marginBottom: '60px',
+        
     },
     formContainer: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        width: '66%'
+        height: '300px'
     },
+    subtext: {
+        padding: '10px'
+    }
 }));
 
 const CreateSurveyForm = () => {
@@ -57,8 +63,10 @@ const CreateSurveyForm = () => {
     const classes = useStyles();
 
     return (
-        <Paper className={classes.paper}>
-            <h1>Survey Tool</h1>
+        <div className={classes.root}>
+ <Paper className={classes.paper}>
+            <h1>Create Your Survey</h1>
+            <p className={classes.subtext}><i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dicta fugit et nobis modi ut accusamus dolores distinctio ad atque neque voluptatibus nostrum temporibus, aliquid delectus iure provident quis sequi?</i></p>
             <div className={classes.formContainer}>
                 <FormTextField 
                     label="Add a name" 
@@ -82,6 +90,8 @@ const CreateSurveyForm = () => {
             </div>
 
         </Paper>
+        </div>
+       
     )
 }
 

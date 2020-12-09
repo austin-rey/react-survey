@@ -8,7 +8,6 @@ import SurveyFlow from './containers/SurveyFlow'
 
 import Alerts from './components/Alerts';
 import Navigation from './components/Navigation';
-import StepperBar from './components/StepperBar'
 
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -20,7 +19,10 @@ import AlertsState from './context/alerts/alertsState';
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: '10px',
-    // height: '100vh'
+    height: '100%',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center'
   },
   app: {
     backgroundImage: 'linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)',
@@ -38,7 +40,6 @@ function App() {
           <Alerts/>
           <Navigation />
           <Container maxWidth="md" className={classes.container}>
-            <StepperBar/>
             {/* <CreateSurveyForm/> */}
             {/* <SurveyQuestions/> */}
             <SurveyFlow/>

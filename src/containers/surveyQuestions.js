@@ -9,21 +9,28 @@ import SurveyContext from '../context/surveys/surveyContext';
 import NewSurveyQuestion from './EditSurveyQuestion';
 import SurveyQuestion from './SurveyQuestion';
 import FormButton from '../components/FormButton';
+import StepperBar from '../components/StepperBar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex'
+        width: '100%'
     },
     paper: {
-        minHeight: '200px',
+        padding: '30px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: '10px'
+        marginTop: '10px',
+        textAlign: 'center'
+    },
+    subText: {
+        padding: '10px',
+        borderBottom: '1px solid #efefef'
     },
     buttonContainer: {
         display: 'flex',
+        padding: '10px',
         width: '70%',
         justifyContent: 'space-evenly'
     }
@@ -49,7 +56,8 @@ const SurveyQuestions = () => {
         showNewQuestionCard(true);
     }
     return (
-        <div>
+        <div className={classes.root}>
+            <StepperBar step={0}/>
             {survey.questions.map((question,i) => (
                  <SurveyQuestion number={i+1} key={i} question={question}/>
              ))}
@@ -58,6 +66,7 @@ const SurveyQuestions = () => {
             ?<NewSurveyQuestion type={questionType} />
             :<Paper className={classes.paper}>
                 <h2>Add a Question</h2>
+                <p className={classes.subText}><i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur incidunt blanditiis aliquid, quidem aliquam dolore voluptas eius accusantium recusandae. Voluptatem sint libero culpa fugiat velit temporibus, sit delectus beatae est?</i></p>
                 <div className={classes.buttonContainer}>
                     <FormButton 
                         type="primary"
@@ -79,10 +88,7 @@ const SurveyQuestions = () => {
                         startIcon={''}/>
                 </div>
             </Paper>
-            }
-            
-
-            
+            }            
         </div>
     )
 }

@@ -8,8 +8,12 @@ const FormButton = ({type, label, onClick, startIcon, variant}) => {
                 color={type} 
                 startIcon={startIcon} 
                 onClick={onClick}>
-                {label}
+                <strong>{label}</strong>
             </Button>
 }
 
 export default FormButton;
+
+// Delete - #CE3B40
+// Edit - #F2CC8F
+// Save - #5D987B

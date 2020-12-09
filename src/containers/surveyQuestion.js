@@ -45,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
       },
       listItem: {
           backgroundColor: '#E6EBE0',
-          marginBottom: '5px'
+          marginBottom: '5px',
+          borderRadius: '5px'
       },
       cardActions: {
         backgroundColor: '#F0EFEB',
@@ -60,6 +61,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '0px',
         width: '50vw'
       },
+      questionType: {
+          color: '#5E5E5E',
+          fontWeight: 'bold'
+      }
 }));
 
 const SurveyQuestion = ({question, number}) => {
@@ -102,11 +107,10 @@ const SurveyQuestion = ({question, number}) => {
                 <CardHeader
                     className={classes.cardHeader}
                     title={`Question ${number}`}
-                    subheader={question.type}
                 />
                 <CardContent>
                     <p>
-                    {question.title}
+                    <span className={classes.questionType}>{question.type}</span> - {question.title}
                     </p>
                     <List className={classes.answerList}>
                         {question.answers.map((answer, i) => (

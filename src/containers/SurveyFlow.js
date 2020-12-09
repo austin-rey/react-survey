@@ -10,6 +10,7 @@ import { Paper } from '@material-ui/core';
 import {Timeline,TimelineItem,TimelineSeparator,TimelineConnector,TimelineContent,TimelineDot} from '@material-ui/lab';
 
 import FormButton from '../components/FormButton';
+import StepperBar from '../components/StepperBar'
 
 import SurveyContext from '../context/surveys/surveyContext';
 import AlertsContext from '../context/alerts/alertsContext';
@@ -17,17 +18,18 @@ import AlertsContext from '../context/alerts/alertsContext';
 const useStyles = makeStyles((theme) => ({
     timelineContent: {
         padding: '5px 10px',
-        border: '1px solid #efefef',
         borderRadius: '5px',
         marginLeft: '10px',
-        marginTop: '10px'
+        marginTop: '10px',
+        backgroundColor: '#E6EBE0'
     },
     timelineContentButton: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#89B0AE',
-        color: '#fff'
+        backgroundColor: '#5D987B',
+        color: '#fff',
+        cursor: 'pointer'
     },
     alignLeft : {
         flexDirection:'row-reverse',
@@ -42,10 +44,14 @@ const SurveyFlow = () => {
 
     const {setAlert} = alertsContext;
     const {survey} = surveyContext;
+    
+    const addScreen = (e) => {console.log('Add Screen')};
+
 
     const classes = useStyles();
     return (
-        <div>        
+        <div>       
+             <StepperBar step={1}/> 
             <Paper>
                 <Timeline align="left">
                     <TimelineItem className={classes.alignLeft}>
@@ -60,8 +66,8 @@ const SurveyFlow = () => {
                             <TimelineDot variant="outlined"/>
                             <TimelineConnector />
                         </TimelineSeparator>
-                        <TimelineContent className={clsx(classes.timelineContent, classes.timelineContentButton)}>
-                           <strong>ADD AN INTRODUCTION</strong>
+                        <TimelineContent className={clsx(classes.timelineContent, classes.timelineContentButton)} onClick={addScreen}>
+                           <strong>ADD AN INTRODUCTION SCREEN</strong>
                         </TimelineContent>
                     </TimelineItem>
                     {survey.questions.map((question,i) => (
@@ -72,7 +78,7 @@ const SurveyFlow = () => {
                                 <TimelineConnector />
                             </TimelineSeparator>
                             <TimelineContent className={classes.timelineContent}>
-                                <p>Question {question.id}<br/> <strong>{question.title}</strong></p>
+                                <p><strong>Question {question.id}</strong><br/>{question.title}</p>
                             </TimelineContent>
                         </TimelineItem>
                     </>
@@ -82,8 +88,8 @@ const SurveyFlow = () => {
                             <TimelineDot variant="outlined"/>
                             <TimelineConnector />
                         </TimelineSeparator>
-                        <TimelineContent className={clsx(classes.timelineContent, classes.timelineContentButton)}>
-                           <strong>ADD AN ENDING</strong>
+                        <TimelineContent className={clsx(classes.timelineContent, classes.timelineContentButton)} onClick={addScreen}>
+                           <strong>ADD AN ENDING SCREEN</strong>
                         </TimelineContent>
                     </TimelineItem>
                     <TimelineItem className={classes.alignLeft}>

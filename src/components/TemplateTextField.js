@@ -1,5 +1,7 @@
 import React from 'react'
 
+import PropTypes from 'prop-types';
+
 import TextField from '@material-ui/core/TextField';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,5 +37,15 @@ const TemplateTextField = ({label, content, placeholder, id, onContentChange}) =
         />
     )
 }
+
+TemplateTextField.propTypes = {
+    label: PropTypes.string,
+    content: PropTypes.string,
+    placeholder: PropTypes.string,
+    id: PropTypes.number,
+    onContentChange: PropTypes.func,
+}
+  
+TemplateTextField.defaultProps = {};
 
 export default TemplateTextField;

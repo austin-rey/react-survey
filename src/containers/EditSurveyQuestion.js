@@ -1,4 +1,10 @@
-import React, {useContext, useState,useEffect} from 'react'
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @Description
+// This container contains the UI/functionality for adding or updating survey questions
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import React, {useContext,useState,useEffect} from 'react'
+
+import PropTypes from 'prop-types';
 
 import {Card,CardHeader,CardContent,CardActions} from '@material-ui/core';
 
@@ -13,30 +19,29 @@ import FormButton from '../components/FormButton';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-      },
-      questionCard: {
+    },
+    questionCard: {
         marginTop: '10px'
-      },
-      cardHeader: {
+    },
+    cardHeader: {
         backgroundColor: '#6F868E',
         color: '#F0EFEB'
-     },
-     answerField: {
+    },
+    answerField: {
         backgroundColor: '#E6EBE0',
-      },
-      answerList: {
-          display: 'flex',
-          flexDirection:"column",
-          alignItems: 'flex-start',
-          width: '100%'
-      },
-      cardActions: {
+    },
+    answerList: {
+        display: 'flex',
+        flexDirection:"column",
+        alignItems: 'flex-start',
+        width: '100%'
+    },
+    cardActions: {
         backgroundColor: '#F0EFEB',
         justifyContent: 'flex-end',
         flexDirection: 'row'
-      },
+    },
 }));
-
 
 const NewSurveyQuestion = ({type, currentQuestion}) => {
     const classes = useStyles();
@@ -51,10 +56,9 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
         title: '',
         answers: []
     })
-
     const [reset, restForm] = useState(false);
 
-    console.log(currentQuestion);
+    // Question already has data, populate local state with selected question
     useEffect(() => {
         if(currentQuestion) {
             setQuestionState({
@@ -86,10 +90,10 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
                 ]
             })
         }
-        
         restForm(false);
-      }, [survey, reset]);
+    }, [survey, reset]);
       
+    // Handles field changes and updates local state
     const fieldChange = (e) => {
         let titleAnswer = e.target.id.replace(/[0-9]/g, '');
         let id = e.target.id.slice(-1);
@@ -107,10 +111,11 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
             :setQuestionState({...questionState, answers:[
                 ...questionState.answers.map((answer,i) => {
                     return (answer.id == id) ? updatedAnswer : answer
-                })
-            ]})
+            })
+        ]})
     }
 
+    // Validates that all fields have content and updates app state with new question
     const submitNewQuestion = () => {
         const answerFields = questionState.answers.reduce((acc, answer)=>{
             return answer.answerTitle === '';
@@ -129,6 +134,7 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
         }
     }
 
+    // Reset form text fields after an update or addition
     const resetFormFields = () => {
         restForm(true);
     }
@@ -146,53 +152,65 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
                     placeholder={'Add a title..'}
                     id={`title${questionState.id}`}
                     name={'title'}
-                    onContentChange={fieldChange} />
-
-                    <div className={classes.answerList}>
-                        {questionState.answers.map((answer, index) => (
-                            <TemplateTextField
-                            className={classes.answerField}
-                            key={index}
-                            label={`ANSWER ${index+1}`}
-                            content={answer.answerTitle} 
-                            placeholder={'Add an answer..'}
-                            id={`answer${answer.id}`}
-                            name={'answer'}
-                            onContentChange={fieldChange} />
-                        ))}
-                    </div>
+                    onContentChange={fieldChange} 
+                />
+                <div className={classes.answerList}>
+                    {questionState.answers.map((answer, index) => (
+                        <TemplateTextField
+                        className={classes.answerField}
+                        key={index}
+                        label={`ANSWER ${index+1}`}
+                        content={answer.answerTitle} 
+                        placeholder={'Add an answer..'}
+                        id={`answer${answer.id}`}
+                        name={'answer'}
+                        onContentChange={fieldChange} />
+                    ))}
+                </div>
             </CardContent>
-            {!currentQuestion && <CardActions className={classes.cardActions}>
-                <FormButton 
-                    type="primary"
-                    label="Save" 
-                    onClick={submitNewQuestion}
-                    variant="contained"
-                    startIcon={''}/>
-                <FormButton 
-                    type="secondary"
-                    label="Undo Changes" 
-                    onClick={resetFormFields}
-                    variant="contained"
-                    startIcon={''}/>
-            </CardActions>}
-            {currentQuestion && <CardActions className={classes.cardActions}>
-                <FormButton 
-                    type="primary"
-                    label="Save Changes" 
-                    onClick={submitNewQuestion}
-                    variant="contained"
-                    startIcon={''}/>
-                <FormButton 
-                    type="secondary"
-                    label="Undo Changes" 
-                    onClick={resetFormFields}
-                    variant="contained"
-                    startIcon={''}/>
-            </CardActions>}
-            
+            {!currentQuestion && 
+                <CardActions className={classes.cardActions}>
+                    <FormButton 
+                        type="primary"
+                        label="Save" 
+                        onClick={submitNewQuestion}
+                        variant="contained"
+                        startIcon={''}/>
+                    <FormButton 
+                        type="secondary"
+                        label="Undo Changes" 
+                        onClick={resetFormFields}
+                        variant="contained"
+                        startIcon={''}/>
+                </CardActions>
+            }
+            {currentQuestion && 
+                <CardActions className={classes.cardActions}>
+                    <FormButton 
+                        type="primary"
+                        label="Save Changes" 
+                        onClick={submitNewQuestion}
+                        variant="contained"
+                        startIcon={''}/>
+                    <FormButton 
+                        type="secondary"
+                        label="Undo Changes" 
+                        onClick={resetFormFields}
+                        variant="contained"
+                        startIcon={''}/>
+                </CardActions>
+            }
         </Card>
     )
 }
+
+NewSurveyQuestion.propTypes = {
+    type: PropTypes.string,
+    currentQuestion: PropTypes.object
+}
+
+NewSurveyQuestion.defaultProps = {
+    type: 'Multiple Choice'
+};
 
 export default NewSurveyQuestion;

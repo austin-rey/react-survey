@@ -1,4 +1,10 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @Description
+// Container manages all questions and the ability to add new questions
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React, {useContext,useState,useEffect} from 'react';
+
+import PropTypes from 'prop-types';
 
 import {Paper} from '@material-ui/core';
 
@@ -6,7 +12,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import SurveyContext from '../context/surveys/surveyContext';
 
-import NewSurveyQuestion from './EditSurveyQuestion';
+import EditSurveyQuestion from './EditSurveyQuestion';
 import SurveyQuestion from './SurveyQuestion';
 import FormButton from '../components/FormButton';
 
@@ -41,18 +47,18 @@ const SurveyQuestions = () => {
     const surveyContext = useContext(SurveyContext);
     const {survey} = surveyContext;
 
-    const [state, showNewQuestionCard] = useState(false);
+    const [showCard, toggleNewQuestionCard] = useState(false);
     const [questionType, setQuestionType] = useState('');
 
     useEffect(() => {
         //New Question was added
         setQuestionType('');
-        showNewQuestionCard(false);
+        toggleNewQuestionCard(false);
     }, [survey])
 
     const questionTypeSelected = (type) => {
         setQuestionType(type);
-        showNewQuestionCard(true);
+        toggleNewQuestionCard(true);
     }
     return (
         <div className={classes.root}>
@@ -60,8 +66,8 @@ const SurveyQuestions = () => {
                  <SurveyQuestion number={i+1} key={i} question={question}/>
              ))}
             
-            {(state)
-            ?<NewSurveyQuestion type={questionType} />
+            {(showCard)
+            ?<EditSurveyQuestion type={questionType} />
             :<Paper className={classes.paper}>
                 <h2>Add a Question</h2>
                 <p className={classes.subText}><i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur incidunt blanditiis aliquid, quidem aliquam dolore voluptas eius accusantium recusandae. Voluptatem sint libero culpa fugiat velit temporibus, sit delectus beatae est?</i></p>
@@ -89,6 +95,10 @@ const SurveyQuestions = () => {
             }            
         </div>
     )
+}
+
+SurveyQuestions.propTypes = {
+    survey: PropTypes.object
 }
 
 export default SurveyQuestions;

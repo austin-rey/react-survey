@@ -1,6 +1,8 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @Description
+// This container manages selected styles to be applied to a published survey
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React,{useContext}  from 'react'
-
-import PropTypes from 'prop-types'
 
 import { Paper } from '@material-ui/core';
 
@@ -14,9 +16,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px',
         marginTop: '10px'
     },
-    subText: {
-        // borderBottom: '1px solid #efefef'
-    },
+    subText: {},
     appearanceItem: {},
     itemHeading: {
         marginLeft: '5px',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SurveyAppearance = props => {
+const SurveyAppearance = () => {
     const surveyContext = useContext(SurveyContext);
     const alertsContext = useContext(AlertsContext);
 
@@ -42,7 +42,6 @@ const SurveyAppearance = props => {
     const {} = surveyContext;
 
     const classes = useStyles();
-
     return (
         <div>
             <Paper className={classes.paper}>
@@ -67,11 +66,4 @@ const SurveyAppearance = props => {
     )
 }
 
-SurveyAppearance.propTypes = {
-
-}
-
 export default SurveyAppearance
-
-// Survey Design Elements: 
-// Type faces, Color Palette, Style (minimal, elevated), Animations

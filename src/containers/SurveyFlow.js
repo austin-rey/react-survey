@@ -1,8 +1,12 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @Description
+// This container allows the user to reorganize questions, add sections and add title/context screens
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React, {useContext} from 'react'
 
-import clsx from 'clsx';
+import PropTypes from 'prop-types';
 
-import PropTypes from 'prop-types'
+import clsx from 'clsx';
 
 import {makeStyles} from '@material-ui/core/styles'
 
@@ -39,7 +43,7 @@ const SurveyFlow = () => {
     const surveyContext = useContext(SurveyContext);
     const alertsContext = useContext(AlertsContext);
 
-    const {setAlert} = alertsContext;
+    const {} = alertsContext;
     const {survey} = surveyContext;
     
     const addScreen = (e) => {console.log('Add Screen')};
@@ -101,7 +105,7 @@ const SurveyFlow = () => {
 }
 
 SurveyFlow.propTypes = {
-
+    survey: PropTypes.object
 }
 
 export default SurveyFlow

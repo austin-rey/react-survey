@@ -1,7 +1,14 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @Description
+// Initial screen of the app includes a form to start building a survey
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React, {useState, useContext} from 'react'
+
 import {Link} from "react-router-dom";
 
-import { FormControl,Paper,Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
+
+import { Paper,Button } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles'
 
 import FormTextField from '../components/FormTextField';
@@ -35,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateSurveyForm = () => {
-
     const surveyContext = useContext(SurveyContext);
     const alertsContext = useContext(AlertsContext);
 
@@ -94,6 +100,11 @@ const CreateSurveyForm = () => {
         </div>
        
     )
+}
+
+CreateSurveyForm.propTypes = {
+    setAlert: PropTypes.func,
+    registerNewSurvey: PropTypes.func
 }
 
 export default CreateSurveyForm;

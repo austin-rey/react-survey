@@ -1,5 +1,7 @@
 import React from 'react'
 
+import PropTypes from 'prop-types';
+
 import {makeStyles} from '@material-ui/core/styles'
 
 import TextField from '@material-ui/core/TextField';
@@ -18,5 +20,14 @@ const FormTextField = ({label, content, id, onContentChange}) => {
         color="primary"/>
     )
 }
+
+FormTextField.propTypes = {
+    type: PropTypes.string,
+    content: PropTypes.string,
+    onContentChange: PropTypes.func,
+    id: PropTypes.number
+}
+
+FormTextField.defaultProps = {};
 
 export default FormTextField;

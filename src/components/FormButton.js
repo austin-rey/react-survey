@@ -1,5 +1,7 @@
 import React from 'react'
 
+import PropTypes from 'prop-types';
+
 import { Button } from '@material-ui/core';
 
 const FormButton = ({type, label, onClick, startIcon, variant}) => {
@@ -12,6 +14,16 @@ const FormButton = ({type, label, onClick, startIcon, variant}) => {
             </Button>
 }
 
+FormButton.propTypes = {
+    type: PropTypes.string,
+    label: PropTypes.string,
+    onClick: PropTypes.func,
+    startIcon: PropTypes.element,
+    variant: PropTypes.string,
+}
+
+FormButton.defaultProps = {};
+  
 export default FormButton;
 
 // Delete - #CE3B40

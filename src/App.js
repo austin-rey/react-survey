@@ -3,19 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 
-import SurveyQuestions from './containers/SurveyQuestions'
-import CreateSurveyForm from './containers/CreateSurveyForm'
-import SurveyFlow from './containers/SurveyFlow'
-import SurveyAppearance from './containers/SurveyAppearance'
-
 import Alerts from './components/Alerts';
 import Navigation from './components/Navigation';
-import StepperBar from './containers/StepperBar'
-
+import SurveyStart from './containers/SurveyStart'
+import SurveyBuilder from './containers/SurveyBuilder'
 
 import {makeStyles} from '@material-ui/core/styles';
 
-import { Container,CssBaseline  } from '@material-ui/core';
+import { Container,CssBaseline } from '@material-ui/core';
 
 import SurveyState from './context/surveys/surveyState';
 import AlertsState from './context/alerts/alertsState';
@@ -42,16 +37,13 @@ function App() {
       <CssBaseline />
       <SurveyState>
         <AlertsState>
-          <Alerts/>
           <Navigation />
+          <Alerts/>
           <Container maxWidth="md" className={classes.container}>
             <Router>
-            <StepperBar/>
               <Switch>
-                <Route exact path='/' component={CreateSurveyForm} />
-                <Route exact path='/questions' component={SurveyQuestions} />
-                <Route exact path='/flow' component={SurveyFlow} />
-                <Route exact path='/appearance' component={SurveyAppearance} />
+                <Route exact path='/' component={SurveyStart} />
+                <Route exact path='/create' component={SurveyBuilder} />
               </Switch>
             </Router>
           </Container>

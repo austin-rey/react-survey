@@ -1,8 +1,12 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// @Description
+// Container manages a question and a modal to edit its content
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import {useContext,useState,useEffect} from 'react'
 
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-import {Card,CardHeader,IconButton,CardContent,CardActions,List,ListItem,ListItemText, Paper, Modal } from '@material-ui/core';
+import {Card,CardHeader,CardContent,CardActions,List,ListItem,ListItemText,Paper,Modal} from '@material-ui/core';
 
 import FormButton from '../components/FormButton';
 import EditSurveyQuestion from '../containers/EditSurveyQuestion';
@@ -11,20 +15,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import SurveyContext from '../context/surveys/surveyContext';
 import AlertsContext from '../context/alerts/alertsContext';
 
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
-
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,9 +64,8 @@ const SurveyQuestion = ({question, number}) => {
     const alertsContext = useContext(AlertsContext);
 
     const {setAlert} = alertsContext;
-    const {deleteQuestion,state} = surveyContext;
+    const {deleteQuestion} = surveyContext;
 
-    const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {setOpen(true);};
@@ -100,7 +89,7 @@ const SurveyQuestion = ({question, number}) => {
                 aria-labelledby="Edit question modal"
                 aria-describedby="This popup is for editing your questions title and answers">
                     <Paper className={classes.paper} variant="outlined">
-                        <EditSurveyQuestion className={classes.surveyQuestion}currentQuestion={question} />
+                        <EditSurveyQuestion className={classes.surveyQuestion} currentQuestion={question} />
                     </Paper>
             </Modal>
             <Card className={classes.cardContainer}>
@@ -141,7 +130,8 @@ const SurveyQuestion = ({question, number}) => {
 }
 
 SurveyQuestion.propTypes = {
-
+    setAlert: PropTypes.func,
+    deleteQuestion: PropTypes.func
 }
 
 export default SurveyQuestion

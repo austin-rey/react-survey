@@ -9,9 +9,6 @@ import {makeStyles} from '@material-ui/core/styles'
 import { Paper } from '@material-ui/core';
 import {Timeline,TimelineItem,TimelineSeparator,TimelineConnector,TimelineContent,TimelineDot} from '@material-ui/lab';
 
-import FormButton from '../components/FormButton';
-import StepperBar from '../components/StepperBar'
-
 import SurveyContext from '../context/surveys/surveyContext';
 import AlertsContext from '../context/alerts/alertsContext';
 
@@ -47,11 +44,9 @@ const SurveyFlow = () => {
     
     const addScreen = (e) => {console.log('Add Screen')};
 
-
     const classes = useStyles();
     return (
         <div>       
-             <StepperBar step={1}/> 
             <Paper>
                 <Timeline align="left">
                     <TimelineItem className={classes.alignLeft}>
@@ -72,7 +67,7 @@ const SurveyFlow = () => {
                     </TimelineItem>
                     {survey.questions.map((question,i) => (
                     <>
-                        <TimelineItem>
+                        <TimelineItem key={i}>
                             <TimelineSeparator>
                                 <TimelineDot variant="outlined"/>
                                 <TimelineConnector />

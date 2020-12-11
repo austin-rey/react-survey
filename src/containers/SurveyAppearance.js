@@ -6,8 +6,6 @@ import { Paper } from '@material-ui/core';
 
 import {makeStyles} from '@material-ui/core/styles'
 
-import StepperBar from '../components/StepperBar'
-
 import SurveyContext from '../context/surveys/surveyContext';
 import AlertsContext from '../context/alerts/alertsContext';
 
@@ -47,7 +45,6 @@ const SurveyAppearance = props => {
 
     return (
         <div>
-             <StepperBar step={2}/> 
             <Paper className={classes.paper}>
                 <div className={classes.appearanceItem}>
                     <h2 className={classes.itemHeading}>Type Faces (Font)</h2>

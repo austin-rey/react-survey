@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 
@@ -9,6 +10,8 @@ import SurveyAppearance from './containers/SurveyAppearance'
 
 import Alerts from './components/Alerts';
 import Navigation from './components/Navigation';
+import StepperBar from './containers/StepperBar'
+
 
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -23,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     alignItems: 'flex-start',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexDirection: 'column'
   },
   app: {
     backgroundImage: 'linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)',
@@ -35,16 +39,21 @@ function App() {
 
   return (
     <div className="App" className={classes.app}>
-       <CssBaseline />
+      <CssBaseline />
       <SurveyState>
         <AlertsState>
           <Alerts/>
           <Navigation />
           <Container maxWidth="md" className={classes.container}>
-            {/* <CreateSurveyForm/> */}
-            {/* <SurveyQuestions/> */}
-            {/* <SurveyFlow/> */}
-            <SurveyAppearance/>
+            <Router>
+            <StepperBar/>
+              <Switch>
+                <Route exact path='/' component={CreateSurveyForm} />
+                <Route exact path='/questions' component={SurveyQuestions} />
+                <Route exact path='/flow' component={SurveyFlow} />
+                <Route exact path='/appearance' component={SurveyAppearance} />
+              </Switch>
+            </Router>
           </Container>
         </AlertsState>
       </SurveyState>

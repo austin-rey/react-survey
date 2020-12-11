@@ -1,10 +1,10 @@
 import React, {useState, useContext} from 'react'
+import {Link} from "react-router-dom";
 
-import { FormControl,Paper } from '@material-ui/core';
+import { FormControl,Paper,Button } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles'
 
 import FormTextField from '../components/FormTextField';
-import FormButton from '../components/FormButton';
 
 import SurveyContext from '../context/surveys/surveyContext';
 import AlertsContext from '../context/alerts/alertsContext';
@@ -56,40 +56,41 @@ const CreateSurveyForm = () => {
     const formSubmit = () => {
         if(surveyDetails.surveyName === '' || surveyDetails.surveyDescription === '') {
             setAlert('Please enter all fields.', 'error');
+        }else {
+            registerNewSurvey(surveyDetails);
         }
-        registerNewSurvey(surveyDetails);
     }
 
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
- <Paper className={classes.paper}>
-            <h1>Create Your Survey</h1>
-            <p className={classes.subtext}><i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dicta fugit et nobis modi ut accusamus dolores distinctio ad atque neque voluptatibus nostrum temporibus, aliquid delectus iure provident quis sequi?</i></p>
-            <div className={classes.formContainer}>
-                <FormTextField 
-                    label="Add a name" 
-                    content={surveyDetails.surveyName} 
-                    id="surveyName" 
-                    onContentChange={event => updateTextField(event.target)} 
-                />
-                <FormTextField 
-                    label="Add a description" 
-                    content={surveyDetails.surveyDescription} 
-                    id="surveyDescription" 
-                    onContentChange={event => updateTextField(event.target)} 
-                />
-                <FormButton 
-                    type="primary"
-                    label="Create Survey" 
-                    onClick={formSubmit}
-                    variant="contained"
-                    icon=""
-                />
-            </div>
-
-        </Paper>
+            <Paper className={classes.paper}>
+                <h1>Create Your Survey</h1>
+                <p className={classes.subtext}><i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dicta fugit et nobis modi ut accusamus dolores distinctio ad atque neque voluptatibus nostrum temporibus, aliquid delectus iure provident quis sequi?</i></p>
+                <div className={classes.formContainer}>
+                    <FormTextField 
+                        label="Add a name" 
+                        content={surveyDetails.surveyName} 
+                        id="surveyName" 
+                        onContentChange={event => updateTextField(event.target)} 
+                    />
+                    <FormTextField 
+                        label="Add a description" 
+                        content={surveyDetails.surveyDescription} 
+                        id="surveyDescription" 
+                        onContentChange={event => updateTextField(event.target)} 
+                    />
+                    <Link to="/questions">                
+                        <Button
+                        label="Create Survey" 
+                        onClick={formSubmit}
+                        variant="contained"
+                        color="primary">Create
+                        </Button>
+                    </Link>
+                </div>
+            </Paper>
         </div>
        
     )

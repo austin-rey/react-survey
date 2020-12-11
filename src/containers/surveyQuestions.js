@@ -9,7 +9,6 @@ import SurveyContext from '../context/surveys/surveyContext';
 import NewSurveyQuestion from './EditSurveyQuestion';
 import SurveyQuestion from './SurveyQuestion';
 import FormButton from '../components/FormButton';
-import StepperBar from '../components/StepperBar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,7 +56,6 @@ const SurveyQuestions = () => {
     }
     return (
         <div className={classes.root}>
-            <StepperBar step={0}/>
             {survey.questions.map((question,i) => (
                  <SurveyQuestion number={i+1} key={i} question={question}/>
              ))}

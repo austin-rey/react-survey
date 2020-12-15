@@ -4,7 +4,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React, {useContext, useState} from 'react'
 
-import SurveyQuestions from './SurveyQuestions';
+import SurveyQuestions from './SurveyQuestionCards';
 import SurveyFlow from './SurveyFlow';
 import SurveyAppearance from './SurveyAppearance';
 import StepperBar from '../components/StepperBar';

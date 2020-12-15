@@ -1,12 +1,12 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // @Description
-// This container contains the UI/functionality for adding or updating survey questions
+// This container contains the UI/functionality for adding or updating survey questions in a modal popup
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import React, {useContext,useState,useEffect} from 'react'
 
 import PropTypes from 'prop-types';
 
-import {Card,CardHeader,CardContent,CardActions} from '@material-ui/core';
+import {Card,CardHeader,CardContent,CardActions,Paper,Modal} from '@material-ui/core';
 
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -41,9 +41,17 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
         flexDirection: 'row'
     },
+    paper: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        marginTop: '0px',
+        width: '50vw'
+      },
 }));
 
-const NewSurveyQuestion = ({type, currentQuestion}) => {
+const SurveyModal = ({type, currentQuestion, handleClose, handleOpen, show, number}) => {
     const classes = useStyles();
 
     const surveyContext = useContext(SurveyContext);
@@ -56,15 +64,16 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
         title: '',
         answers: []
     })
-    const [reset, restForm] = useState(false);
+    const [reset, restForm] = useState(true);
 
-    // Question already has data, populate local state with selected question
     useEffect(() => {
+        // Editing an existing question
         if(currentQuestion) {
             setQuestionState({
                 id: currentQuestion.id,
                 title: currentQuestion.title,
                 type: currentQuestion.type,
+                number: number,
                 answers: currentQuestion.answers.map(answer=> {
                     return {id: answer.id,answerTitle: answer.answerTitle}
                 })
@@ -72,6 +81,7 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
         }else {
             setQuestionState({
                 id: survey.questions.length +1,
+                number: survey.questions.length +1,
                 title: '',
                 type: type,
                 answers: [
@@ -140,11 +150,16 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
     }
 
     return (
-        <Card className={classes.questionCard}>
+        <Modal
+        open={show}
+        onClose={handleClose}
+        aria-labelledby="Edit question modal"
+        aria-describedby="This popup is for editing your questions title and answers">
+            <Paper className={classes.paper} variant="outlined">
+            <Card className={classes.questionCard}>
             <CardHeader
                 className={classes.cardHeader}
-                title={`Question ${questionState.id}`}
-                subheader={questionState.type}/>
+                title={`Question ${questionState.number}`}/>
             <CardContent className={classes.questionContent}>
                 <TemplateTextField 
                     label="TITLE" 
@@ -200,17 +215,22 @@ const NewSurveyQuestion = ({type, currentQuestion}) => {
                         startIcon={''}/>
                 </CardActions>
             }
-        </Card>
+            </Card>
+        </Paper>
+    </Modal>
     )
 }
 
-NewSurveyQuestion.propTypes = {
+SurveyModal.propTypes = {
     type: PropTypes.string,
-    currentQuestion: PropTypes.object
+    currentQuestion: PropTypes.object,
+    handleOpen: PropTypes.func,
+    handleClose: PropTypes.func,
+    open: PropTypes.bool
 }
 
-NewSurveyQuestion.defaultProps = {
-    type: 'Multiple Choice'
+SurveyModal.defaultProps = {
+    type: 'Multiple Choice',
 };
 
-export default NewSurveyQuestion;
+export default SurveyModal;

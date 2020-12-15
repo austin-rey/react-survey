@@ -12,8 +12,8 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import SurveyContext from '../context/surveys/surveyContext';
 
-import EditSurveyQuestion from './EditSurveyQuestion';
-import SurveyQuestion from './SurveyQuestion';
+import SurveyModal from './SurveyModal';
+import SurveyQuestion from './SurveyQuestionCard';
 import FormButton from '../components/FormButton';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,28 +47,30 @@ const SurveyQuestions = () => {
     const surveyContext = useContext(SurveyContext);
     const {survey} = surveyContext;
 
-    const [showCard, toggleNewQuestionCard] = useState(false);
     const [questionType, setQuestionType] = useState('');
+
+    // Modal state per adding a new question
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {setOpen(true);};
+    const handleClose = () => {setOpen(false);};
 
     useEffect(() => {
         //New Question was added
         setQuestionType('');
-        toggleNewQuestionCard(false);
+        handleClose(false);
+        setOpen(false);
     }, [survey])
 
     const questionTypeSelected = (type) => {
         setQuestionType(type);
-        toggleNewQuestionCard(true);
+        handleOpen(true);
     }
     return (
         <div className={classes.root}>
             {survey.questions.map((question,i) => (
                  <SurveyQuestion number={i+1} key={i} question={question}/>
              ))}
-            
-            {(showCard)
-            ?<EditSurveyQuestion type={questionType} />
-            :<Paper className={classes.paper}>
+            <Paper className={classes.paper}>
                 <h2>Add a Question</h2>
                 <p className={classes.subText}><i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur incidunt blanditiis aliquid, quidem aliquam dolore voluptas eius accusantium recusandae. Voluptatem sint libero culpa fugiat velit temporibus, sit delectus beatae est?</i></p>
                 <div className={classes.buttonContainer}>
@@ -92,7 +94,12 @@ const SurveyQuestions = () => {
                         startIcon={''}/>
                 </div>
             </Paper>
-            }            
+            <SurveyModal 
+                show={open} 
+                type={questionType}
+                handleOpen={handleOpen} 
+                handleClose={handleClose}
+            />    
         </div>
     )
 }

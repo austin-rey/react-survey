@@ -6,10 +6,10 @@ import {useContext,useState,useEffect} from 'react'
 
 import PropTypes from 'prop-types';
 
-import {Card,CardHeader,CardContent,CardActions,List,ListItem,ListItemText,Paper,Modal} from '@material-ui/core';
+import {Card,CardHeader,CardContent,CardActions,List,ListItem,ListItemText,} from '@material-ui/core';
 
 import FormButton from '../components/FormButton';
-import EditSurveyQuestion from '../containers/EditSurveyQuestion';
+import SurveyModal from './SurveyModal';
 
 import {makeStyles} from '@material-ui/core/styles';
 import SurveyContext from '../context/surveys/surveyContext';
@@ -43,14 +43,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
         flexDirection: 'row'
       },
-      paper: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        marginTop: '0px',
-        width: '50vw'
-      },
       questionType: {
           color: '#5E5E5E',
           fontWeight: 'bold'
@@ -66,8 +58,8 @@ const SurveyQuestion = ({question, number}) => {
     const {setAlert} = alertsContext;
     const {deleteQuestion} = surveyContext;
 
+    // Modal state per editing a question
     const [open, setOpen] = useState(false);
-
     const handleOpen = () => {setOpen(true);};
     const handleClose = () => {setOpen(false);};
 
@@ -83,24 +75,21 @@ const SurveyQuestion = ({question, number}) => {
 
     return (
         <div>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="Edit question modal"
-                aria-describedby="This popup is for editing your questions title and answers">
-                    <Paper className={classes.paper} variant="outlined">
-                        <EditSurveyQuestion className={classes.surveyQuestion} currentQuestion={question} />
-                    </Paper>
-            </Modal>
+            {/* User clicks "Edit" */}
+            <SurveyModal 
+                show={open} 
+                number={number}
+                currentQuestion={question} 
+                handleOpen={handleOpen} 
+                handleClose={handleClose}
+            />
             <Card className={classes.cardContainer}>
                 <CardHeader
                     className={classes.cardHeader}
                     title={`Question ${number}`}
                 />
                 <CardContent>
-                    <p>
-                    <span className={classes.questionType}>{question.type}</span> - {question.title}
-                    </p>
+                    <p><span className={classes.questionType}>{question.type}</span> - {question.title}</p>
                     <List className={classes.answerList}>
                         {question.answers.map((answer, i) => (
                             <ListItem key={i} className={classes.listItem}>
@@ -122,10 +111,9 @@ const SurveyQuestion = ({question, number}) => {
                         onClick={questionDeleted}
                         variant="contained"
                         startIcon={''}/>
-            </CardActions>
-        </Card>
+                </CardActions>
+            </Card>
         </div>
-        
     )
 }
 

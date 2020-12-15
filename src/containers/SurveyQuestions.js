@@ -13,7 +13,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import SurveyContext from '../context/surveys/surveyContext';
 
 import SurveyModal from './SurveyModal';
-import SurveyQuestion from './SurveyQuestionCard';
+import SurveyQuestion from './SurveyQuestion';
 import FormButton from '../components/FormButton';
 
 const useStyles = makeStyles((theme) => ({
